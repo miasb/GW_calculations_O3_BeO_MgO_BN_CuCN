@@ -1,0 +1,322 @@
+#control.in header for database project 
+#using def2-QVPZ basis for light and heavy elements
+
+#########################################
+  xc                 pbe
+  qpe_calc           gw 
+  hybrid_xc_coeff 0.0
+  #RI_method v
+  #spin               collinear
+  #default_initial_moment 0.01 
+  spin none
+
+  anacon_type  1
+  n_anacon_par 128
+  frequency_points 600
+  contour_def_gw   12 32
+  contour_eta 0.001
+  state_lower_limit 1
+  state_upper_limit 500
+  print_self_energy 21 -20.0 0.0
+
+  relativistic none
+  override_relativity .true.
+  partition_type rho_r2
+  density_update_method density_matrix
+
+  calc_spectral_func -20.0 0.0 0.01
+  spectral_func_state 21
+
+#########################################
+  occupation_type    gaussian 0.000001
+  mixer              pulay
+    n_max_pulay        10
+    charge_mix_param   0.2
+  sc_accuracy_rho    1E-5
+  sc_accuracy_eev    1E-5
+  sc_accuracy_etot   1E-5
+  sc_iter_limit      400
+#########################################
+  prodbas_threshold  1.e-5
+  KS_method          serial
+  empty_states       25000
+  # Do not check for overlapping xxx matrix
+  # Not recommended
+  # Necessary for large basis sets
+  override_illconditioning .true.
+  basis_threshold 1.e-5
+#########################################
+
+################################################################################
+#
+#  FHI-aims code project
+#  VB, Fritz-Haber Institut, 2007
+#
+#  Suggested "safe" defaults for Cu atom (to be pasted into control.in file)
+#
+################################################################################
+  species        Cu
+#
+    nucleus      29
+    mass         63.546
+#
+    l_hartree           8
+#
+    cut_pot      4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#
+    radial_base        53 7.0
+    radial_multiplier  2
+    angular_grids       specified
+      division   0.7212  110
+      division   0.9907  194
+      division   1.1992  302
+      division   1.6856  434
+      division   1.8201  590
+#      division   1.8921  770
+#      division   2.4078  974
+#      outer_grid   974
+      outer_grid   590
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      4  s   1.
+    valence      3  p   6.
+    valence      3  d  10.
+#     ion occupancy
+    ion_occ      4  s   0.
+    ion_occ      3  p   6.
+    ion_occ      3  d   9.
+
+
+            # The default minimal basis should not be included
+            include_min_basis .false.
+            # Use spherical functions?
+            pure_gauss .true.
+            # Cu def2-QZVP
+gaussian 0 11
+5056467.8898000              0.93501916365E-05
+ 759457.8383500              0.72323443222E-04
+ 173524.8849700              0.37813833845E-03
+  49327.2599880              0.15870129862E-02
+  16144.1499300              0.57220685294E-02
+   5844.5964680              0.18268390048E-01
+   2284.6812739              0.51893720863E-01
+    948.88232514             0.12796192366
+    413.66215455             0.25629891036
+    187.38942059             0.36064416138
+     86.872771648            0.26833664660
+gaussian 0 4
+   1744.0598287              0.88587079141E-02
+    540.93295513             0.86522785813E-01
+    207.99736224             0.38932285258
+     90.475793036            0.69777199902
+gaussian 0 1 38.869687699
+gaussian 0 1 18.974829147
+gaussian 0 1 9.0953644635
+gaussian 0 1 3.8330020174
+gaussian 0 1 1.8198891499
+gaussian 0 1 0.79068098393
+gaussian 0 1 0.14914142106
+gaussian 0 1 0.72448090592E-01
+gaussian 0 1 0.30959925368E-01
+gaussian 1 9
+   9720.4614555              0.17828803512E-03
+   2302.7557452              0.15678108633E-02
+    747.48498314             0.87470094509E-02
+    285.00132623             0.36044549301E-01
+    120.15121609             0.11287209053
+     54.145261156            0.25647377341
+     25.406033563            0.38512918379
+     12.224331465            0.30316512356
+      5.7638720668           0.81677218969E-01
+gaussian 1 5
+     83.210837217           -0.63530359993E-02
+     29.694779129           -0.31383834666E-01
+      5.8248516206           0.30930039753
+      2.6746181180           0.63583925938
+      1.1841836775           0.50946045967
+gaussian 1 1 0.48043583535
+gaussian 1 1 0.1870000
+gaussian 1 1 0.0762000
+gaussian 1 1 0.0310000
+gaussian 2 6
+    249.54025080             0.12432881244E-02
+     74.683914534            0.10456901995E-01
+     28.392717116            0.46451241249E-01
+     11.955968430            0.13541359729
+      5.3210744624           0.25852899978
+      2.3661189459           0.33168127635
+gaussian 2 1 1.0131863994
+gaussian 2 1 0.40710035940
+gaussian 2 1 0.14742541032
+gaussian 2 1 0.71E-01
+gaussian 3 1 6.9620000
+gaussian 3 1 2.2330000
+gaussian 3 1 0.7040000
+gaussian 4 1 3.2450000
+
+################################################################################
+#
+#  FHI-aims code project
+#  VB, Fritz-Haber Institut, 2007
+#
+#  Suggested "safe" defaults for C atom (to be pasted into control.in file)
+#
+################################################################################
+  species        C
+#     global species definitions
+    nucleus             6
+    mass                12.0107
+#
+    l_hartree           8
+#
+    cut_pot             4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#
+    radial_base         34 7.0
+    radial_multiplier   2
+    angular_grids specified
+      division   0.4031  110
+      division   0.5191  194
+      division   0.6263  302
+      division   0.8150  434
+      division   0.8501  590
+#     division   0.9238  770
+#     division   1.6076  974
+#     outer_grid  974
+     outer_grid 590
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      2  s   2.
+    valence      2  p   2.
+#     ion occupancy
+    ion_occ      2  s   1.
+    ion_occ      2  p   1.
+
+            # The default minimal basis should not be included
+            include_min_basis .false.
+            # Use spherical functions?
+            pure_gauss .true.
+            # C def2-QZVP
+gaussian 0 8
+  67025.0710290              0.38736308501E-04
+  10039.9865380              0.30107917575E-03
+   2284.9316911              0.15787918095E-02
+    647.14122130             0.66087087195E-02
+    211.09472335             0.23367123250E-01
+     76.177643862            0.70420716898E-01
+     29.633839163            0.17360344953
+     12.187785081            0.32292305648
+gaussian 0 2
+     53.026006299            0.74897404492E-01
+     15.258502776            0.76136220983
+gaussian 0 1 5.2403957464
+gaussian 0 1 2.2905022379
+gaussian 0 1 0.69673283006
+gaussian 0 1 0.27599337363
+gaussian 0 1 0.10739884389
+gaussian 1 5
+    105.12555082             0.84647553844E-03
+     24.884461066            0.66274038534E-02
+      7.8637230826           0.30120390419E-01
+      2.8407001835           0.99951435476E-01
+      1.1227137335           0.23826299282
+gaussian 1 1 0.46050725555
+gaussian 1 1 0.18937530913
+gaussian 1 1 0.75983791611E-01
+gaussian 2 1 1.84800000
+gaussian 2 1 0.64900000
+gaussian 2 1 0.22800000
+gaussian 3 1 1.41900000
+gaussian 3 1 0.48500000
+gaussian 4 1 1.01100000
+
+################################################################################
+#
+#  FHI-aims code project
+#  VB, Fritz-Haber Institut, 2007
+#
+#  Suggested "safe" defaults for N atom (to be pasted into control.in file)
+#
+################################################################################
+  species        N
+#     global species definitions
+    nucleus             7
+    mass                14.0067
+#
+    l_hartree           8
+#
+    cut_pot             4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#
+    radial_base         35 7.0
+    radial_multiplier   2
+    angular_grids       specified
+      division   0.3806  110
+      division   0.5126  194
+      division   0.5309  302
+      division   0.7632  434
+#      division   0.7874  770
+#      division   3.0496  974
+#      outer_grid  974
+      outer_grid  590
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      2  s   2.
+    valence      2  p   3.
+#     ion occupancy
+    ion_occ      2  s   1.
+    ion_occ      2  p   2.
+
+
+            # The default minimal basis should not be included
+            include_min_basis .false.
+            # Use spherical functions?
+            pure_gauss .true.
+            # N def2-QZVP
+gaussian 0 8
+  90726.8892100              0.39257887368E-04
+  13590.5288010              0.30513316455E-03
+   3092.9883781              0.16000560446E-02
+    875.99876362             0.66982937306E-02
+    285.74469982             0.23690078765E-01
+    103.11913417             0.71455405268E-01
+     40.128556777            0.17632774876
+     16.528095704            0.32677592815
+gaussian 0 2
+     69.390960983            0.80052094386E-01
+     20.428200596            0.78268063538
+gaussian 0 1 7.1292587972
+gaussian 0 1 3.1324304893
+gaussian 0 1 0.98755778723
+gaussian 0 1 0.38765721307
+gaussian 0 1 0.14909883075
+gaussian 1 5
+    150.05742670            -0.86216165986E-03
+     35.491599483           -0.68571273236E-02
+     11.247864223           -0.31795688855E-01
+      4.0900305195          -0.10537396822
+      1.6220573146          -0.24519708041
+gaussian 1 1 0.66442261530
+gaussian 1 1 0.27099770070
+gaussian 1 1 0.10688749984
+gaussian 2 1 2.83700000
+gaussian 2 1 0.96800000
+gaussian 2 1 0.33500000
+gaussian 3 1 2.02700000
+gaussian 3 1 0.68500000
+gaussian 4 1 1.42700000
+
+

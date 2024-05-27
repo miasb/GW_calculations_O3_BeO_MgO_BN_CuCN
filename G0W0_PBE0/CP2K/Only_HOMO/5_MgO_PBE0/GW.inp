@@ -1,0 +1,103 @@
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+    BASIS_SET_FILE_NAME BASIS_def2_QZVP_RI_ALL
+    POTENTIAL_FILE_NAME POTENTIAL
+    &MGRID
+      CUTOFF 400
+      REL_CUTOFF 50
+    &END MGRID
+    &QS
+      ! all electron calculation since GW100 is all-electron test
+      METHOD GAPW
+	  !EPS_DEFAULT = 1.0E-15
+	  !EPS_PGF_ORB 1.0E-30
+    &END QS
+    &POISSON
+      PERIODIC NONE
+      PSOLVER MT
+    &END
+    &SCF
+      EPS_SCF   1.0E-6
+      SCF_GUESS RESTART
+      MAX_SCF   30
+    &END SCF
+    &XC
+      &XC_FUNCTIONAL
+       &PBE
+	    SCALE_X 0.75
+       &END PBE
+      &END XC_FUNCTIONAL
+	  &HF
+	    FRACTION 0.25
+        &SCREENING        
+          EPS_SCHWARZ 1.0E-12
+          SCREEN_ON_INITIAL_P FALSE
+	    &END
+	  &END
+      ! GW is part of the WF_CORRELATION section
+      &WF_CORRELATION
+		&LOW_SCALING
+		  !EPS_FILTER 0.0
+		  MEMORY_CUT 1
+		&END
+        &RI_RPA
+		  &HF
+			FRACTION 1.0000
+			&SCREENING
+			  EPS_SCHWARZ 2.0E-17
+			  SCREEN_ON_INITIAL_P FALSE
+			&END SCREENING
+		  &END HF
+		  !RPA_NUM_QUAD_POINTS 20
+          &GW
+            CORR_OCC   10
+            CORR_VIRT  10
+            RI_SIGMA_X FALSE
+			&PRINT
+			  &GW_DOS
+				LOWER_BOUND -20.0
+				UPPER_BOUND   0.0
+				STEP 0.005
+				MIN_LEVEL_SELF_ENERGY 10
+				MAX_LEVEL_SELF_ENERGY 10
+				BROADENING 0.0272
+				MIN_LEVEL_SPECTRAL 10
+				MAX_LEVEL_SPECTRAL 10
+			  &END
+			&END
+          &END GW
+        &END RI_RPA
+      &END
+    &END XC
+  &END DFT
+  &SUBSYS
+    &CELL
+      ABC 10.0 10.0 10.0
+      PERIODIC NONE
+    &END CELL
+    &COORD
+Mg 0.0000 0.0000 0.0000
+O  0.0000 0.0000 1.749
+    &END COORD
+    &TOPOLOGY
+      &CENTER_COORDINATES
+      &END
+    &END TOPOLOGY
+    &KIND O
+      BASIS_SET def2-QZVP
+      BASIS_SET RI_AUX RI-5Z
+      POTENTIAL ALL
+    &END KIND
+    &KIND Mg
+      BASIS_SET def2-QZVP
+      BASIS_SET RI_AUX RI-5Z
+      POTENTIAL ALL
+    &END KIND
+  &END SUBSYS
+&END FORCE_EVAL
+&GLOBAL
+  RUN_TYPE     ENERGY
+  PROJECT      ALL_ELEC
+  PRINT_LEVEL  MEDIUM
+&END GLOBAL

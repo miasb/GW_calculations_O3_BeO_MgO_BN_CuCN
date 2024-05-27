@@ -1,0 +1,218 @@
+#control.in header for database project 
+#using def2-QVPZ basis for light and heavy elements
+
+#########################################
+  xc pbe
+  qpe_calc ev_scgw0 
+  #RI_method v
+  #spin               collinear
+  #default_initial_moment 0.01 
+  spin none
+
+  iterations_sc_cd 20
+  frequency_points 2000
+  full_cmplx_sigma .true.
+
+  anacon_type  1
+  n_anacon_par 128
+  #contour_def_gw   6 6
+  contour_def_gw   1 17
+  nocc_sc_cd 10
+  nvirt_sc_cd 10
+  #nvirt_sc_cd 10
+ # sc_reiterate .true.
+  iterations_sc_cd 40
+  try_zshot .false.
+  contour_eta 0.004
+  state_lower_limit 1
+  state_upper_limit 500
+  print_self_energy 6 -20.0 0.0
+
+  relativistic none
+  override_relativity .true.
+  partition_type rho_r2
+  density_update_method density_matrix
+
+  calc_spectral_func -20.0 0.0 0.001
+  spectral_func_state 6
+
+#########################################
+  occupation_type    gaussian 0.000001
+  mixer              pulay
+    n_max_pulay        10
+    charge_mix_param   0.2
+  sc_accuracy_rho    1E-5
+  sc_accuracy_eev    1E-5
+  sc_accuracy_etot   1E-5
+  sc_iter_limit      400
+#########################################
+  prodbas_threshold  1.e-5
+  KS_method          serial
+  empty_states       25000
+  # Do not check for overlapping xxx matrix
+  # Not recommended
+  # Necessary for large basis sets
+  override_illconditioning .true.
+  #basis_threshold 1.e-5
+#########################################
+################################################################################
+#
+#  FHI-aims code project
+#  VB, Fritz-Haber Institut, 2007
+#
+#  Suggested "safe" defaults for B atom (to be pasted into control.in file)
+#
+################################################################################
+  species        B
+#     global species definitions
+    nucleus             5
+    mass                10.811
+#
+    l_hartree           8
+#
+    cut_pot             4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#
+    radial_base         32 7.0
+    radial_multiplier   2
+    angular_grids       specified
+      division   0.3742  110
+      division   0.5197  194
+      division   0.5753  302
+      division   0.7664  434
+#      division   0.8392  770
+#      division   1.6522  974
+#      outer_grid   974
+      outer_grid   590
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      2  s   2.
+    valence      2  p   1.
+#     ion occupancy
+    ion_occ      2  s   1.
+
+
+
+            # The default minimal basis should not be included
+            include_min_basis .false.
+            # Use spherical functions?
+            pure_gauss .true.
+            # B def2-QZVP
+gaussian 0 8
+  46447.6670560              0.38388681014E-04
+   6957.6889042              0.29836770197E-03
+   1583.4428403              0.15645478806E-02
+    448.46601009             0.65476770742E-02
+    146.28639262             0.23139008388E-01
+     52.784386084            0.69615799357E-01
+     20.519396170            0.17119636876
+      8.4185659258           0.31913191837
+gaussian 0 2
+     36.510018312            0.78990617244E-01
+     10.541854005            0.78926384265
+gaussian 0 1 3.6004091387
+gaussian 0 1 1.5617023749
+gaussian 0 1 0.44997370775
+gaussian 0 1 0.18075230237
+gaussian 0 1 0.71596696319E-01
+gaussian 1 5
+     72.240462760            0.86539170411E-03
+     16.807707208            0.68762067365E-02
+      5.2259410747           0.30976687148E-01
+      1.8508350671           0.10432357913
+      0.72206782663          0.26164137577
+gaussian 1 1 0.29491018056
+gaussian 1 1 0.12201141839
+gaussian 1 1 0.49865393625E-01
+gaussian 2 1 1.11000000
+gaussian 2 1 0.40200000
+gaussian 2 1 0.14500000
+gaussian 3 1 0.88200000
+gaussian 3 1 0.31100000
+gaussian 4 1 0.67300000
+
+################################################################################
+#
+#  FHI-aims code project
+#  VB, Fritz-Haber Institut, 2007
+#
+#  Suggested "safe" defaults for N atom (to be pasted into control.in file)
+#
+################################################################################
+  species        N
+#     global species definitions
+    nucleus             7
+    mass                14.0067
+#
+    l_hartree           8
+#
+    cut_pot             4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#
+    radial_base         35 7.0
+    radial_multiplier   2
+    angular_grids       specified
+      division   0.3806  110
+      division   0.5126  194
+      division   0.5309  302
+      division   0.7632  434
+#      division   0.7874  770
+#      division   3.0496  974
+#      outer_grid  974
+      outer_grid  590
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      2  s   2.
+    valence      2  p   3.
+#     ion occupancy
+    ion_occ      2  s   1.
+    ion_occ      2  p   2.
+
+
+            # The default minimal basis should not be included
+            include_min_basis .false.
+            # Use spherical functions?
+            pure_gauss .true.
+            # N def2-QZVP
+gaussian 0 8
+  90726.8892100              0.39257887368E-04
+  13590.5288010              0.30513316455E-03
+   3092.9883781              0.16000560446E-02
+    875.99876362             0.66982937306E-02
+    285.74469982             0.23690078765E-01
+    103.11913417             0.71455405268E-01
+     40.128556777            0.17632774876
+     16.528095704            0.32677592815
+gaussian 0 2
+     69.390960983            0.80052094386E-01
+     20.428200596            0.78268063538
+gaussian 0 1 7.1292587972
+gaussian 0 1 3.1324304893
+gaussian 0 1 0.98755778723
+gaussian 0 1 0.38765721307
+gaussian 0 1 0.14909883075
+gaussian 1 5
+    150.05742670            -0.86216165986E-03
+     35.491599483           -0.68571273236E-02
+     11.247864223           -0.31795688855E-01
+      4.0900305195          -0.10537396822
+      1.6220573146          -0.24519708041
+gaussian 1 1 0.66442261530
+gaussian 1 1 0.27099770070
+gaussian 1 1 0.10688749984
+gaussian 2 1 2.83700000
+gaussian 2 1 0.96800000
+gaussian 2 1 0.33500000
+gaussian 3 1 2.02700000
+gaussian 3 1 0.68500000
+gaussian 4 1 1.42700000
+
+

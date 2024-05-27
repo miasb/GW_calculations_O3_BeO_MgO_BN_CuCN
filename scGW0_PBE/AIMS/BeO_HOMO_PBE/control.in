@@ -1,0 +1,218 @@
+#control.in header for database project 
+#using def2-QVPZ basis for light and heavy elements
+
+#########################################
+  xc pbe
+  qpe_calc ev_scgw0 
+  #RI_method v
+  #spin               collinear
+  #default_initial_moment 0.01 
+  spin none
+
+  iterations_sc_cd 20
+  frequency_points 2000
+  full_cmplx_sigma .true.
+
+  anacon_type  1
+  n_anacon_par 128
+  contour_def_gw   1 17
+  nocc_sc_cd 10
+  nvirt_sc_cd 10
+  contour_eta 0.004
+  state_lower_limit 1
+  state_upper_limit 100
+  #print_self_energy 6 -20.0 0.0
+
+  relativistic none
+  override_relativity .true.
+  partition_type rho_r2
+  density_update_method density_matrix
+
+  calc_spectral_func -20.0 0.0 0.001
+
+#########################################
+  occupation_type    gaussian 0.000001
+  mixer              pulay
+    n_max_pulay        10
+    charge_mix_param   0.1
+  sc_accuracy_rho    1E-7
+  sc_accuracy_eev    1E-7
+  sc_accuracy_etot   1E-7
+  sc_iter_limit      800
+#########################################
+  prodbas_threshold  1.e-7
+  KS_method          serial
+  empty_states       25000
+  # Do not check for overlapping xxx matrix
+  # Not recommended
+  # Necessary for large basis sets
+  override_illconditioning .true.
+  basis_threshold 1.e-5
+#########################################
+################################################################################
+#
+#  FHI-aims code project
+# Volker Blum, Fritz Haber Institute Berlin, 2009
+#
+#  Suggested "tight" defaults for Be atom (to be pasted into control.in file)
+#
+################################################################################
+  species        Be
+#     global species definitions
+    nucleus             4
+    mass                9.012182
+#
+    l_hartree           8
+#
+    cut_pot             4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#     
+    radial_base         31 7.0
+    radial_multiplier   4
+    angular_grids       specified
+      division   0.4283  110
+      division   0.4792  194
+      division   0.5061  302
+      division   0.7227  434
+      division   0.8724  590
+      #division   0.9555  770
+      #division   2.9770  974
+      #outer_grid   974
+      outer_grid 590
+
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      2  s   2.
+#     ion occupancy
+    ion_occ      2  s   1.
+################################################################################
+            # The default minimal basis should not be included
+            include_min_basis .false.
+            # Use spherical functions?
+            pure_gauss .true.
+            # Be def2-QZVP
+gaussian 0 8
+  29646.7044070              0.37943320869E-04
+   4428.7614354              0.29605352634E-03
+   1005.4701332              0.15572477356E-02
+    284.15339578             0.65323195769E-02
+     92.504356461            0.23116861005E-01
+     33.311016058            0.69458515249E-01
+     12.911553314            0.17014371331
+      5.2665497361           0.31682711374
+gaussian 0 2
+     22.995386380            0.81791122747E-01
+      6.6236354176           0.80000038023
+gaussian 0 1 2.2289595003
+gaussian 0 1 0.95302433451
+gaussian 0 1 0.24651602436
+gaussian 0 1 0.10153895315
+gaussian 0 1 0.41551374604E-01
+gaussian 1 1 6.4000000
+gaussian 1 4
+     14.099789445            0.38508871145E-02
+      3.1803188482           0.24152380771E-01
+      0.90489220496          0.97926925156E-01
+      0.30411585508          0.29470380030
+gaussian 1 1 0.11302606657
+gaussian 1 1 0.42831733691E-01
+gaussian 2 1 0.3600000
+gaussian 2 1 0.0900000
+gaussian 3 1 0.2900000
+
+
+
+################################################################################
+#
+#  FHI-aims code project
+# Volker Blum, Fritz Haber Institute Berlin, 2009
+#
+#  Suggested "tight" defaults for O atom (to be pasted into control.in file)
+#
+################################################################################
+  species        O
+#     global species definitions
+    nucleus             8
+    mass                15.9994
+#
+    l_hartree           8
+#
+    cut_pot             4.0  2.0  1.0
+    basis_dep_cutoff    0.d0
+#
+    radial_base         36 7.0
+    radial_multiplier   4
+     angular_grids specified
+      division   0.4087  110
+      division   0.5181  194
+      division   0.6184  302
+      division   0.7315  434
+      division   0.7934  590
+      #division   0.9656  770
+      #division   1.4041  974
+      #outer_grid 974
+      outer_grid 590
+
+################################################################################
+#
+#  Definition of "minimal" basis
+#
+################################################################################
+#     valence basis states
+    valence      2  s   2.
+    valence      2  p   4.
+#     ion occupancy
+    ion_occ      2  s   1.
+    ion_occ      2  p   3.
+
+################################################################################
+#
+#  Suggested additional basis functions. For production calculations, 
+#  uncomment them one after another (the most important basis functions are
+#  listed first).
+#
+#  Basis constructed for dimers: 0.5 A, 0.7 A, 1.0 A, 1.5 A, 2.5 A
+#
+################################################################################
+# The default minimal basis should not be included
+include_min_basis .false.
+# Use spherical functions?
+pure_gauss .true.
+# O def2-QZVP
+gaussian 0 8
+ 116506.4690800              0.40383857939E-04
+  17504.3497240              0.31255139004E-03
+   3993.4513230              0.16341473495E-02
+   1133.0063186              0.68283224757E-02
+    369.99569594             0.24124410221E-01
+    133.62074349             0.72730206154E-01
+     52.035643649            0.17934429892
+     21.461939313            0.33059588895
+gaussian 0 2
+     89.835051252            0.96468652996E-01
+     26.428010844            0.94117481120
+gaussian 0 1 9.2822824649
+gaussian 0 1 4.0947728533
+gaussian 0 1 1.3255349078
+gaussian 0 1 0.51877230787
+gaussian 0 1 0.19772676454
+gaussian 1 5
+    191.15255810             0.25115697705E-02
+     45.233356739            0.20039240864E-01
+     14.353465922            0.93609064762E-01
+      5.2422371832           0.30618127124
+      2.0792418599           0.67810501439
+gaussian 1 1 0.84282371424
+gaussian 1 1 0.33617694891
+gaussian 1 1 0.12863997974
+gaussian 2 1 3.77500000
+gaussian 2 1 1.30000000
+gaussian 2 1 0.44400000
+gaussian 3 1 2.66600000
+gaussian 3 1 0.85900000
+gaussian 4 1 1.84600000
+

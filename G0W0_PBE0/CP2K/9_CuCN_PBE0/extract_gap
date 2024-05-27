@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#cat MgO_GW100.inp | grep 
+#cat cp2k.out | grep "( occ )" | tail -1 | echo -e "HOMO:\t$(awk '{ print $8 }')" && cat cp2k.out | grep "( vir )" | head -1 | echo -e "LUMO:\t$(awk '{ print $8 }')" && cat cp2k.out | grep HOMO-LUMO | echo -e "Gap:\t $( awk '{ print $5 }' )"
+
+echo "$(cat GW.inp | grep SCALE_X | awk '{print $2}')\t$(cat cp2k.out | grep '( occ )' | tail -1 | awk '{print $8}')\t$(cat cp2k.out | grep '( vir )' | head -1 | awk '{print $8}')\t$(cat cp2k.out | grep 'HOMO-LUMO' | awk '{print $5}')"
